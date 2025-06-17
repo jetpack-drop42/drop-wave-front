@@ -10,7 +10,11 @@ import DropsPage from './components/pages/DropsPage';
 import DropCampaignPage from './components/pages/DropCampaignPage';
 import AboutCreatorPage from './components/pages/AboutCreatorPage';
 import CartPage from './components/pages/CartPage';
+import CheckoutPage from './components/pages/CheckoutPage';
 import CheckoutSuccessPage from './components/pages/CheckoutSuccessPage';
+import SignInPage from './components/pages/SignInPage';
+import SignUpPage from './components/pages/SignUpPage';
+import AccountPage from './components/pages/AccountPage';
 import NotFound from './pages/NotFound';
 import AddedToBagOverlay from './components/cart/AddedToBagOverlay';
 
@@ -28,7 +32,11 @@ function AppContent() {
         <Route path="/drop/:id" element={<DropCampaignPage />} />
         <Route path="/about" element={<AboutCreatorPage />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/checkout-success" element={<CheckoutSuccessPage />} />
+        <Route path="/signin" element={<SignInPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/account" element={<AccountPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Toaster />
