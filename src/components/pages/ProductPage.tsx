@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Heart, Share2 } from 'lucide-react';
+import { ArrowLeft, Share2 } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import ProductCard from '../product/ProductCard';
 
@@ -8,7 +8,6 @@ const ProductPage = () => {
   const { id } = useParams();
   const { addItem } = useCart();
   const [selectedSize, setSelectedSize] = useState('M');
-  const [isLiked, setIsLiked] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   // Mock product data - would come from API
@@ -165,20 +164,10 @@ const ProductPage = () => {
                 </button>
               </div>
 
-              <div className="flex space-x-3">
-                <button
-                  onClick={() => setIsLiked(!isLiked)}
-                  className="flex-1 py-3 px-4 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors flex items-center justify-center space-x-2"
-                >
-                  <Heart className={`w-5 h-5 ${isLiked ? 'fill-red-500 text-red-500' : 'text-gray-600'}`} />
-                  <span>Save</span>
-                </button>
-                
-                <button className="flex-1 py-3 px-4 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors flex items-center justify-center space-x-2">
-                  <Share2 className="w-5 h-5 text-gray-600" />
-                  <span>Share</span>
-                </button>
-              </div>
+              <button className="w-full py-3 px-4 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors flex items-center justify-center space-x-2">
+                <Share2 className="w-5 h-5 text-gray-600" />
+                <span>Share</span>
+              </button>
             </div>
 
             {/* Product Features */}
