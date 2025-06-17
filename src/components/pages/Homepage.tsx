@@ -117,9 +117,11 @@ const Homepage = () => {
             </div>
 
             <h2 className="text-2xl font-bold mb-6">All Products</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="flex gap-6 overflow-x-auto pb-4">
               {allProducts.slice(0, 4).map((product) => (
-                <ProductCard key={product.id} product={product} />
+                <div key={product.id} className="flex-none w-72">
+                  <ProductCard product={product} />
+                </div>
               ))}
             </div>
           </div>
