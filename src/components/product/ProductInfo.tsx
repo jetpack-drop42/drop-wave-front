@@ -1,8 +1,6 @@
-
 import { useState } from 'react';
 import { Share2 } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
-import { useToast } from '@/hooks/use-toast';
 
 interface Color {
   name: string;
@@ -30,7 +28,6 @@ interface ProductInfoProps {
 
 const ProductInfo = ({ product, onColorChange }: ProductInfoProps) => {
   const { addItem, toggleCart } = useCart();
-  const { toast } = useToast();
   const [selectedSize, setSelectedSize] = useState('M');
   const [selectedColor, setSelectedColor] = useState(product.colors?.[0] || null);
 
@@ -48,11 +45,6 @@ const ProductInfo = ({ product, onColorChange }: ProductInfoProps) => {
       size: selectedSize,
       color: selectedColor?.name
     });
-    
-    toast({
-      title: "Added to cart",
-      description: `${product.name} has been added to your cart.`,
-    });
   };
 
   const handleBuyNow = () => {
@@ -65,15 +57,10 @@ const ProductInfo = ({ product, onColorChange }: ProductInfoProps) => {
       color: selectedColor?.name
     });
     
-    toast({
-      title: "Redirecting to cart",
-      description: "Taking you to checkout...",
-    });
-    
-    // Small delay to show the toast before navigation
+    // Small delay to show the overlay before navigation
     setTimeout(() => {
       toggleCart();
-    }, 500);
+    }, 2500);
   };
 
   return (

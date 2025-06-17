@@ -11,9 +11,15 @@ interface CartItem {
   quantity: number;
 }
 
+interface AddedToBagState {
+  isVisible: boolean;
+  itemName: string;
+}
+
 interface CartContextType {
   items: CartItem[];
   isOpen: boolean;
+  addedToBag: AddedToBagState;
   addItem: (item: Omit<CartItem, 'quantity'>) => void;
   removeItem: (id: string, size?: string, color?: string) => void;
   updateQuantity: (id: string, quantity: number, size?: string, color?: string) => void;
@@ -21,6 +27,7 @@ interface CartContextType {
   getTotalItems: () => number;
   getTotalPrice: () => number;
   clearCart: () => void;
+  hideAddedToBag: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -36,6 +43,10 @@ export const useCart = () => {
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [addedToBag, setAddedToBag] = useState<AddedToBagState>({
+    isVisible: false,
+    itemName: ''
+  });
 
   const addItem = (newItem: Omit<CartItem, 'quantity'>) => {
     setItems(prev => {
@@ -52,6 +63,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       }
       
       return [...prev, { ...newItem, quantity: 1 }];
+    });
+
+    // Show the added to bag overlay
+    setAddedToBag({
+      isVisible: true,
+      itemName: newItem.name
     });
   };
 
@@ -82,17 +99,26 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const clearCart = () => setItems([]);
 
+  const hideAddedToBag = () => {
+    setAddedToBag({
+      isVisible: false,
+      itemName: ''
+    });
+  };
+
   return (
     <CartContext.Provider value={{
       items,
       isOpen,
+      addedToBag,
       addItem,
       removeItem,
       updateQuantity,
       toggleCart,
       getTotalItems,
       getTotalPrice,
-      clearCart
+      clearCart,
+      hideAddedToBag
     }}>
       {children}
     </CartContext.Provider>
