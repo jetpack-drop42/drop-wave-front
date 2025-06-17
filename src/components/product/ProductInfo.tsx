@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { Share2 } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
+import { useToast } from '@/hooks/use-toast';
 
 interface Color {
   name: string;
@@ -28,7 +29,8 @@ interface ProductInfoProps {
 }
 
 const ProductInfo = ({ product, onColorChange }: ProductInfoProps) => {
-  const { addItem } = useCart();
+  const { addItem, toggleCart } = useCart();
+  const { toast } = useToast();
   const [selectedSize, setSelectedSize] = useState('M');
   const [selectedColor, setSelectedColor] = useState(product.colors?.[0] || null);
 
@@ -46,12 +48,32 @@ const ProductInfo = ({ product, onColorChange }: ProductInfoProps) => {
       size: selectedSize,
       color: selectedColor?.name
     });
+    
+    toast({
+      title: "Added to cart",
+      description: `${product.name} has been added to your cart.`,
+    });
   };
 
   const handleBuyNow = () => {
-    handleAddToCart();
-    // Navigate to cart or checkout page
-    window.location.href = '/cart';
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.images[0],
+      size: selectedSize,
+      color: selectedColor?.name
+    });
+    
+    toast({
+      title: "Redirecting to cart",
+      description: "Taking you to checkout...",
+    });
+    
+    // Small delay to show the toast before navigation
+    setTimeout(() => {
+      toggleCart();
+    }, 500);
   };
 
   return (
@@ -121,33 +143,31 @@ const ProductInfo = ({ product, onColorChange }: ProductInfoProps) => {
         </div>
       </div>
 
-      {/* Add to Cart and Buy Now */}
-      <div className="space-y-3">
-        <div className="grid grid-cols-2 gap-3">
-          <button
-            onClick={handleAddToCart}
-            disabled={!product.inStock}
-            className={`py-4 px-6 rounded-lg font-medium transition-colors border ${
-              product.inStock
-                ? 'bg-white text-black border-black hover:bg-gray-50'
-                : 'bg-gray-200 text-gray-500 cursor-not-allowed border-gray-300'
-            }`}
-          >
-            {product.inStock ? 'Add to Cart' : 'Out of Stock'}
-          </button>
+      {/* Add to Cart and Buy Now Buttons */}
+      <div className="space-y-4">
+        <button
+          onClick={handleAddToCart}
+          disabled={!product.inStock}
+          className={`w-full py-4 px-6 rounded-lg font-medium transition-colors border-2 ${
+            product.inStock
+              ? 'bg-white text-black border-black hover:bg-gray-50'
+              : 'bg-gray-200 text-gray-500 cursor-not-allowed border-gray-300'
+          }`}
+        >
+          {product.inStock ? 'Add to Cart' : 'Out of Stock'}
+        </button>
 
-          <button
-            onClick={handleBuyNow}
-            disabled={!product.inStock}
-            className={`py-4 px-6 rounded-lg font-medium transition-colors ${
-              product.inStock
-                ? 'bg-black text-white hover:bg-gray-800'
-                : 'bg-gray-200 text-gray-500 cursor-not-allowed'
-            }`}
-          >
-            {product.inStock ? 'Buy Now' : 'Out of Stock'}
-          </button>
-        </div>
+        <button
+          onClick={handleBuyNow}
+          disabled={!product.inStock}
+          className={`w-full py-4 px-6 rounded-lg font-medium transition-colors ${
+            product.inStock
+              ? 'bg-black text-white hover:bg-gray-800'
+              : 'bg-gray-200 text-gray-500 cursor-not-allowed'
+          }`}
+        >
+          {product.inStock ? 'Buy Now' : 'Out of Stock'}
+        </button>
 
         <button className="w-full py-3 px-4 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors flex items-center justify-center space-x-2">
           <Share2 className="w-5 h-5 text-gray-600" />
