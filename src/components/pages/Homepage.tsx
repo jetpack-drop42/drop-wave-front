@@ -13,14 +13,14 @@ const Homepage = () => {
   const mockDrops: Drop[] = [
     {
       id: '1',
-      title: 'Abstract Pattern Tee',
+      title: 'Premium Cotton Tee',
       image: '/lovable-uploads/a0af2fd1-53d3-4482-9b34-5dd7a03c12df.png',
       status: 'coming-soon' as const,
       startDate: new Date(Date.now() + 8 * 60 * 60 * 1000), // 8 hours from now
     },
     {
       id: '2',
-      title: 'Magic Water Bottle',
+      title: 'Water Bottle Collection',
       image: '/lovable-uploads/09b11c0a-f123-4891-be66-b516558a9817.png',
       status: 'live' as const,
       endDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000 + 14 * 60 * 60 * 1000 + 37 * 60 * 1000), // 2d 14h 37m from now
@@ -31,50 +31,74 @@ const Homepage = () => {
   const allProducts: Product[] = [
     {
       id: '1',
-      name: 'Abstract Pattern Tee',
+      name: 'Premium Cotton Tee',
       price: 28,
       image: '/lovable-uploads/a0af2fd1-53d3-4482-9b34-5dd7a03c12df.png',
-      description: 'Stylish blue t-shirt with abstract geometric pattern',
+      description: 'Soft premium cotton t-shirt with comfortable fit',
       isNew: true,
     },
     {
       id: '2',
-      name: 'Make Your Magic Water Bottle',
+      name: 'Stainless Steel Water Bottle',
       price: 22,
       image: '/lovable-uploads/09b11c0a-f123-4891-be66-b516558a9817.png',
-      description: 'Motivational CamelBak water bottle with inspiring design',
+      description: 'Durable stainless steel water bottle for daily hydration',
       isNew: false,
     },
     {
       id: '3',
-      name: 'Neon Sign Wall Art',
-      price: 45,
+      name: 'Vintage Poster Print',
+      price: 15,
       image: '/lovable-uploads/a5baf921-1082-4125-8cc8-ccb252062a6b.png',
-      description: 'Motivational neon sign poster - "This is the sign you\'ve been looking for"',
+      description: 'Classic vintage-style poster for wall decoration',
       isNew: true,
     },
     {
       id: '4',
-      name: 'Dream Believe Achieve Canvas',
-      price: 38,
+      name: 'Canvas Wall Art',
+      price: 35,
       image: '/lovable-uploads/b0450473-ea7d-4288-a913-596c20960ef6.png',
-      description: 'Inspirational beach sunset canvas wall art',
+      description: 'Beautiful canvas print for modern home decor',
       isNew: false,
     },
     {
       id: '5',
-      name: 'Modern Logo Tee',
+      name: 'Classic Logo Tee',
       price: 25,
       image: '/lovable-uploads/17b70eb0-ff9a-4af8-80ad-5fdd4ab6d334.png',
-      description: 'Clean white t-shirt with modern geometric logo design',
+      description: 'Timeless design t-shirt with classic logo',
       isNew: false,
     },
     {
       id: '6',
-      name: 'Karaoke Club Shot Glass',
-      price: 12,
+      name: 'Coffee Mug Set',
+      price: 18,
       image: '/lovable-uploads/d9f0f475-294a-4fe4-83c0-fd9f0e3d324b.png',
-      description: 'Fun karaoke club themed shot glass for parties',
+      description: 'Ceramic coffee mug perfect for morning coffee',
+      isNew: true,
+    },
+    {
+      id: '7',
+      name: 'Comfort Hoodie',
+      price: 42,
+      image: '/lovable-uploads/a0af2fd1-53d3-4482-9b34-5dd7a03c12df.png',
+      description: 'Cozy pullover hoodie for casual comfort',
+      isNew: true,
+    },
+    {
+      id: '8',
+      name: 'Travel Tumbler',
+      price: 24,
+      image: '/lovable-uploads/09b11c0a-f123-4891-be66-b516558a9817.png',
+      description: 'Insulated tumbler perfect for hot and cold drinks',
+      isNew: false,
+    },
+    {
+      id: '9',
+      name: 'Art Print Collection',
+      price: 20,
+      image: '/lovable-uploads/b0450473-ea7d-4288-a913-596c20960ef6.png',
+      description: 'Curated art print collection for your space',
       isNew: true,
     },
   ];
@@ -133,8 +157,13 @@ const Homepage = () => {
             </div>
 
             <h2 className="text-2xl font-bold mb-6">All Products</h2>
-            <div className="grid grid-cols-3 gap-6">
+            <div className="grid grid-cols-3 gap-6 mb-6">
               {allProducts.slice(0, 3).map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+            <div className="grid grid-cols-3 gap-6">
+              {allProducts.slice(3, 6).map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
