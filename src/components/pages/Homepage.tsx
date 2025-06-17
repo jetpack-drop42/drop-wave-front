@@ -13,53 +13,69 @@ const Homepage = () => {
   const mockDrops: Drop[] = [
     {
       id: '1',
-      title: 'Abstract Shape Print',
-      image: '/lovable-uploads/38c9f9f3-e155-44d2-9677-f296e1781068.png',
+      title: 'Abstract Pattern Tee',
+      image: '/lovable-uploads/a0af2fd1-53d3-4482-9b34-5dd7a03c12df.png',
       status: 'coming-soon' as const,
       startDate: new Date(Date.now() + 8 * 60 * 60 * 1000), // 8 hours from now
     },
     {
       id: '2',
-      title: 'Good Energy T-Shirt',
-      image: '/lovable-uploads/dd78b53a-3b2d-49aa-afde-210881370822.png',
+      title: 'Magic Water Bottle',
+      image: '/lovable-uploads/09b11c0a-f123-4891-be66-b516558a9817.png',
       status: 'live' as const,
       endDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000 + 14 * 60 * 60 * 1000 + 37 * 60 * 1000), // 2d 14h 37m from now
-      price: 28
+      price: 22
     }
   ];
 
   const allProducts: Product[] = [
     {
       id: '1',
-      name: 'Connected Hoodie',
-      price: 45,
-      image: '/lovable-uploads/dd78b53a-3b2d-49aa-afde-210881370822.png',
-      description: 'Everything is connected hoodie design',
-      isNew: false,
-    },
-    {
-      id: '2',
-      name: 'Flower Tote Bag',
-      price: 20,
-      image: '/lovable-uploads/dd78b53a-3b2d-49aa-afde-210881370822.png',
-      description: 'Beautiful flower design tote bag',
+      name: 'Abstract Pattern Tee',
+      price: 28,
+      image: '/lovable-uploads/a0af2fd1-53d3-4482-9b34-5dd7a03c12df.png',
+      description: 'Stylish blue t-shirt with abstract geometric pattern',
       isNew: true,
     },
     {
+      id: '2',
+      name: 'Make Your Magic Water Bottle',
+      price: 22,
+      image: '/lovable-uploads/09b11c0a-f123-4891-be66-b516558a9817.png',
+      description: 'Motivational CamelBak water bottle with inspiring design',
+      isNew: false,
+    },
+    {
       id: '3',
-      name: 'Beach Sunset Tee',
-      price: 28,
-      image: '/lovable-uploads/38c9f9f3-e155-44d2-9677-f296e1781068.png',
-      description: 'Vibrant beach sunset design',
+      name: 'Neon Sign Wall Art',
+      price: 45,
+      image: '/lovable-uploads/a5baf921-1082-4125-8cc8-ccb252062a6b.png',
+      description: 'Motivational neon sign poster - "This is the sign you\'ve been looking for"',
       isNew: true,
     },
     {
       id: '4',
-      name: 'Mountain Line Tee',
-      price: 28,
-      image: '/lovable-uploads/38c9f9f3-e155-44d2-9677-f296e1781068.png',
-      description: 'Minimalist mountain line design',
+      name: 'Dream Believe Achieve Canvas',
+      price: 38,
+      image: '/lovable-uploads/b0450473-ea7d-4288-a913-596c20960ef6.png',
+      description: 'Inspirational beach sunset canvas wall art',
       isNew: false,
+    },
+    {
+      id: '5',
+      name: 'Modern Logo Tee',
+      price: 25,
+      image: '/lovable-uploads/17b70eb0-ff9a-4af8-80ad-5fdd4ab6d334.png',
+      description: 'Clean white t-shirt with modern geometric logo design',
+      isNew: false,
+    },
+    {
+      id: '6',
+      name: 'Karaoke Club Shot Glass',
+      price: 12,
+      image: '/lovable-uploads/d9f0f475-294a-4fe4-83c0-fd9f0e3d324b.png',
+      description: 'Fun karaoke club themed shot glass for parties',
+      isNew: true,
     },
   ];
 
@@ -152,15 +168,15 @@ const Homepage = () => {
         {activeTab === 'collection' && (
           <div>
             <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold mb-4">Summer Vibes Collection</h2>
+              <h2 className="text-3xl font-bold mb-4">Motivational Collection</h2>
               <p className="text-gray-600 max-w-2xl mx-auto">
-                Discover our curated collection of summer essentials, featuring vibrant designs 
-                and comfortable materials perfect for the season.
+                Discover our curated collection of motivational designs, featuring inspiring messages 
+                and uplifting artwork perfect for daily motivation.
               </p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {allProducts.filter(product => ['3', '4'].includes(product.id)).map((product) => (
+              {allProducts.filter(product => ['2', '3', '4'].includes(product.id)).map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>

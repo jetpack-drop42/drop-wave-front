@@ -13,15 +13,15 @@ const ProductPage = () => {
   // Mock product data - would come from API
   const product = {
     id: id || '1',
-    name: 'Beach Sunset Tee',
+    name: 'Abstract Pattern Tee',
     price: 28,
     originalPrice: 35,
-    description: 'A vibrant t-shirt featuring a beach sunset design. Perfect for summer vibes and casual wear. Made from 100% organic cotton for ultimate comfort.',
+    description: 'A stylish blue t-shirt featuring an abstract geometric pattern. Perfect for casual wear and making a statement. Made from 100% organic cotton for ultimate comfort.',
     images: [
-      'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=600&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=600&h=600&fit=crop'
+      '/lovable-uploads/a0af2fd1-53d3-4482-9b34-5dd7a03c12df.png',
+      '/lovable-uploads/17b70eb0-ff9a-4af8-80ad-5fdd4ab6d334.png',
+      '/lovable-uploads/09b11c0a-f123-4891-be66-b516558a9817.png',
+      '/lovable-uploads/a5baf921-1082-4125-8cc8-ccb252062a6b.png'
     ],
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
     inStock: true,
@@ -34,9 +34,9 @@ const ProductPage = () => {
   };
 
   const relatedProducts = [
-    { id: '2', name: 'Mountain Line Tee', price: 28, image: '', isNew: false },
-    { id: '3', name: 'Ocean Wave Hoodie', price: 45, image: '', isNew: true },
-    { id: '4', name: 'Sunset Tote Bag', price: 20, image: '', isNew: false },
+    { id: '2', name: 'Modern Logo Tee', price: 25, image: '/lovable-uploads/17b70eb0-ff9a-4af8-80ad-5fdd4ab6d334.png', isNew: false },
+    { id: '3', name: 'Magic Water Bottle', price: 22, image: '/lovable-uploads/09b11c0a-f123-4891-be66-b516558a9817.png', isNew: true },
+    { id: '4', name: 'Karaoke Club Shot Glass', price: 12, image: '/lovable-uploads/d9f0f475-294a-4fe4-83c0-fd9f0e3d324b.png', isNew: false },
   ];
 
   const handleAddToCart = () => {
