@@ -3,6 +3,12 @@ import { useState } from 'react';
 import { Share2 } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 
+interface Color {
+  name: string;
+  value: string;
+  images: string[];
+}
+
 interface Product {
   id: string;
   name: string;
@@ -10,6 +16,7 @@ interface Product {
   originalPrice?: number;
   description: string;
   images: string[];
+  colors?: Color[];
   sizes: string[];
   inStock: boolean;
   features: string[];
@@ -17,11 +24,18 @@ interface Product {
 
 interface ProductInfoProps {
   product: Product;
+  onColorChange?: (color: Color) => void;
 }
 
-const ProductInfo = ({ product }: ProductInfoProps) => {
+const ProductInfo = ({ product, onColorChange }: ProductInfoProps) => {
   const { addItem } = useCart();
   const [selectedSize, setSelectedSize] = useState('M');
+  const [selectedColor, setSelectedColor] = useState(product.colors?.[0] || null);
+
+  const handleColorChange = (color: Color) => {
+    setSelectedColor(color);
+    onColorChange?.(color);
+  };
 
   const handleAddToCart = () => {
     addItem({
@@ -29,7 +43,8 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
       name: product.name,
       price: product.price,
       image: product.images[0],
-      size: selectedSize
+      size: selectedSize,
+      color: selectedColor?.name
     });
   };
 
@@ -60,6 +75,31 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
       <p className="text-gray-600 leading-relaxed">
         {product.description}
       </p>
+
+      {/* Color Selection */}
+      {product.colors && product.colors.length > 0 && (
+        <div>
+          <h3 className="text-sm font-medium text-gray-900 mb-3">Color</h3>
+          <div className="flex space-x-3">
+            {product.colors.map((color) => (
+              <button
+                key={color.name}
+                onClick={() => handleColorChange(color)}
+                className={`w-8 h-8 rounded-full border-2 transition-all ${
+                  selectedColor?.name === color.name
+                    ? 'border-black ring-2 ring-gray-300'
+                    : 'border-gray-300 hover:border-gray-400'
+                }`}
+                style={{ backgroundColor: color.value }}
+                title={color.name}
+              />
+            ))}
+          </div>
+          {selectedColor && (
+            <p className="text-sm text-gray-600 mt-2">Selected: {selectedColor.name}</p>
+          )}
+        </div>
+      )}
 
       {/* Size Selection */}
       <div>
