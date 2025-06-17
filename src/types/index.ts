@@ -17,6 +17,7 @@ export interface Product {
   description: string;
   sizes?: string[];
   isNew?: boolean;
+  category?: string;
 }
 
 export interface CartItem extends Product {
