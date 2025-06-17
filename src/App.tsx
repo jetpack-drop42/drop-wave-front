@@ -10,6 +10,7 @@ import DropsPage from './components/pages/DropsPage';
 import DropCampaignPage from './components/pages/DropCampaignPage';
 import WaterBottleDropPage from './components/pages/WaterBottleDropPage';
 import PremiumTeeDropPage from './components/pages/PremiumTeeDropPage';
+import AvailableSoonDropPage from './components/pages/AvailableSoonDropPage';
 import AboutCreatorPage from './components/pages/AboutCreatorPage';
 import CartPage from './components/pages/CartPage';
 import CheckoutPage from './components/pages/CheckoutPage';
@@ -34,6 +35,7 @@ function AppContent() {
         <Route path="/drop/:id" element={<DropCampaignPage />} />
         <Route path="/drop/water-bottle" element={<WaterBottleDropPage />} />
         <Route path="/drop/premium-tee" element={<PremiumTeeDropPage />} />
+        <Route path="/drop/1" element={<AvailableSoonDropPage />} />
         <Route path="/about" element={<AboutCreatorPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
