@@ -35,7 +35,7 @@ const DropCard = ({ drop }: DropCardProps) => {
 
   return (
     <div className="group relative bg-gray-100 rounded-2xl overflow-hidden hover:shadow-lg transition-all duration-300">
-      <div className="aspect-square bg-gray-100 relative overflow-hidden">
+      <Link to={getDropRoute(drop.id)} className="aspect-square bg-gray-100 relative overflow-hidden block">
         <img
           src={drop.image}
           alt={drop.title}
@@ -62,7 +62,7 @@ const DropCard = ({ drop }: DropCardProps) => {
             <CountdownTimer targetDate={drop.endDate} />
           </div>
         )}
-      </div>
+      </Link>
 
       <div className="p-6 bg-white">
         <h3 className="text-xl font-bold mb-2">{drop.title}</h3>
