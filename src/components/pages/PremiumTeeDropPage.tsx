@@ -5,18 +5,24 @@ import { Link } from 'react-router-dom';
 import CountdownTimer from '../ui/CountdownTimer';
 import { Button } from '../ui/button';
 import NotifyMeOverlay from '../ui/NotifyMeOverlay';
+import ProductImageGallery from '../product/ProductImageGallery';
 
 const PremiumTeeDropPage = () => {
   const dropStartDate = new Date(Date.now() + 8 * 60 * 60 * 1000);
   const [email, setEmail] = useState('');
   const [isNotified, setIsNotified] = useState(false);
   const [showNotifyOverlay, setShowNotifyOverlay] = useState(false);
+  const [currentImages, setCurrentImages] = useState<string[]>([]);
 
   const [selectedVariant, setSelectedVariant] = useState({
     id: '1',
     name: 'Premium Cotton Tee - Black',
     price: 28,
-    expectedStock: 150
+    expectedStock: 150,
+    images: [
+      '/lovable-uploads/09b11c0a-f123-4891-be66-b516558a9817.png',
+      '/lovable-uploads/a5baf921-1082-4125-8cc8-ccb252062a6b.png'
+    ]
   });
 
   const variants = [
@@ -24,19 +30,31 @@ const PremiumTeeDropPage = () => {
       id: '1',
       name: 'Premium Cotton Tee - Black',
       price: 28,
-      expectedStock: 150
+      expectedStock: 150,
+      images: [
+        '/lovable-uploads/09b11c0a-f123-4891-be66-b516558a9817.png',
+        '/lovable-uploads/a5baf921-1082-4125-8cc8-ccb252062a6b.png'
+      ]
     },
     {
       id: '9',
       name: 'Premium Cotton Tee - White',
       price: 28,
-      expectedStock: 120
+      expectedStock: 120,
+      images: [
+        '/lovable-uploads/17b70eb0-ff9a-4af8-80ad-5fdd4ab6d334.png',
+        '/lovable-uploads/a0af2fd1-53d3-4482-9b34-5dd7a03c12df.png'
+      ]
     },
     {
       id: '10',
       name: 'Premium Cotton Tee - Gray',
       price: 28,
-      expectedStock: 100
+      expectedStock: 100,
+      images: [
+        '/lovable-uploads/a0af2fd1-53d3-4482-9b34-5dd7a03c12df.png',
+        '/lovable-uploads/17b70eb0-ff9a-4af8-80ad-5fdd4ab6d334.png'
+      ]
     }
   ];
 
@@ -51,6 +69,13 @@ const PremiumTeeDropPage = () => {
   const hideNotifyOverlay = () => {
     setShowNotifyOverlay(false);
   };
+
+  const handleVariantChange = (variant: typeof variants[0]) => {
+    setSelectedVariant(variant);
+    setCurrentImages(variant.images);
+  };
+
+  const displayImages = currentImages.length > 0 ? currentImages : selectedVariant.images;
 
   return (
     <div className="min-h-screen bg-white">
@@ -90,14 +115,8 @@ const PremiumTeeDropPage = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
-          {/* Product Image */}
-          <div className="aspect-square bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl overflow-hidden">
-            <img
-              src="/lovable-uploads/a0af2fd1-53d3-4482-9b34-5dd7a03c12df.png"
-              alt={selectedVariant.name}
-              className="w-full h-full object-cover"
-            />
-          </div>
+          {/* Product Images with Thumbnails */}
+          <ProductImageGallery images={displayImages} productName={selectedVariant.name} />
 
           {/* Product Details */}
           <div className="space-y-6">
@@ -123,7 +142,7 @@ const PremiumTeeDropPage = () => {
                 {variants.map((variant) => (
                   <button
                     key={variant.id}
-                    onClick={() => setSelectedVariant(variant)}
+                    onClick={() => handleVariantChange(variant)}
                     className={`w-full text-left p-3 rounded-lg border transition-colors ${
                       selectedVariant.id === variant.id
                         ? 'border-black bg-gray-50'
