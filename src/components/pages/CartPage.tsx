@@ -11,10 +11,19 @@ const CartPage = () => {
   const totalWithShipping = getTotalPrice() + shippingCost;
 
   const handleSecureCheckout = () => {
-    console.log('Secure checkout clicked');
-    // Navigate to checkout success page
-    navigate('/checkout-success');
+    console.log('Secure checkout clicked - button handler triggered');
+    console.log('Items in cart:', items);
+    console.log('Total price:', totalWithShipping);
+    try {
+      // Navigate to checkout success page
+      navigate('/checkout-success');
+      console.log('Navigation to checkout success initiated');
+    } catch (error) {
+      console.error('Error navigating to checkout:', error);
+    }
   };
+
+  console.log('CartPage rendered, items count:', items.length);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -152,9 +161,15 @@ const CartPage = () => {
                 </div>
 
                 <button 
-                  onClick={handleSecureCheckout}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Button clicked - event triggered');
+                    handleSecureCheckout();
+                  }}
                   className="w-full bg-black text-white py-4 rounded-lg font-medium hover:bg-gray-800 transition-colors flex items-center justify-center space-x-2 mb-4 cursor-pointer"
                   type="button"
+                  style={{ pointerEvents: 'auto' }}
                 >
                   <Lock className="w-5 h-5" />
                   <span>Secure Checkout</span>
