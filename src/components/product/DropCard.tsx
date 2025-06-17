@@ -21,6 +21,18 @@ const DropCard = ({ drop }: DropCardProps) => {
   const isLive = drop.status === 'live';
   const isComingSoon = drop.status === 'coming-soon';
 
+  // Map drop IDs to specific routes
+  const getDropRoute = (dropId: string) => {
+    switch (dropId) {
+      case 'water-bottle':
+        return '/drop/water-bottle';
+      case 'premium-tee':
+        return '/drop/premium-tee';
+      default:
+        return `/drop/${dropId}`;
+    }
+  };
+
   return (
     <div className="group relative bg-gray-100 rounded-2xl overflow-hidden hover:shadow-lg transition-all duration-300">
       <div className="aspect-square bg-gray-100 relative overflow-hidden">
@@ -75,13 +87,16 @@ const DropCard = ({ drop }: DropCardProps) => {
 
         <div className="space-y-2">
           {isComingSoon ? (
-            <button className="w-full bg-white border border-gray-300 text-gray-700 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors flex items-center justify-center space-x-2">
+            <Link
+              to={getDropRoute(drop.id)}
+              className="block w-full bg-white border border-gray-300 text-gray-700 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors text-center flex items-center justify-center space-x-2"
+            >
               <Bell className="w-4 h-4" />
               <span>Get notified</span>
-            </button>
+            </Link>
           ) : (
             <Link
-              to={`/drop/${drop.id}`}
+              to={getDropRoute(drop.id)}
               className="block w-full bg-black text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors text-center"
             >
               {isLive ? 'Buy Now' : 'View Drop'}

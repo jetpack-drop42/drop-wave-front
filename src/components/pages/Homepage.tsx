@@ -10,14 +10,14 @@ const Homepage = () => {
   // Mock data for drops - matching the mockups
   const mockDrops: Drop[] = [
     {
-      id: '1',
+      id: 'premium-tee',
       title: 'Premium Cotton Tee',
       image: '/lovable-uploads/a0af2fd1-53d3-4482-9b34-5dd7a03c12df.png',
       status: 'coming-soon' as const,
       startDate: new Date(Date.now() + 8 * 60 * 60 * 1000), // 8 hours from now
     },
     {
-      id: '2',
+      id: 'water-bottle',
       title: 'Water Bottle Collection',
       image: '/lovable-uploads/09b11c0a-f123-4891-be66-b516558a9817.png',
       status: 'live' as const,
