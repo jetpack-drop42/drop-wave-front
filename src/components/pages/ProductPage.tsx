@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Heart, Share2 } from 'lucide-react';
@@ -49,6 +48,12 @@ const ProductPage = () => {
       image: product.images[0],
       size: selectedSize
     });
+  };
+
+  const handleBuyNow = () => {
+    handleAddToCart();
+    // Navigate to cart or checkout page
+    window.location.href = '/cart';
   };
 
   return (
@@ -132,19 +137,33 @@ const ProductPage = () => {
               </div>
             </div>
 
-            {/* Add to Cart */}
+            {/* Add to Cart and Buy Now */}
             <div className="space-y-3">
-              <button
-                onClick={handleAddToCart}
-                disabled={!product.inStock}
-                className={`w-full py-4 px-6 rounded-lg font-medium transition-colors ${
-                  product.inStock
-                    ? 'bg-black text-white hover:bg-gray-800'
-                    : 'bg-gray-200 text-gray-500 cursor-not-allowed'
-                }`}
-              >
-                {product.inStock ? 'Add to Cart' : 'Out of Stock'}
-              </button>
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  onClick={handleAddToCart}
+                  disabled={!product.inStock}
+                  className={`py-4 px-6 rounded-lg font-medium transition-colors border ${
+                    product.inStock
+                      ? 'bg-white text-black border-black hover:bg-gray-50'
+                      : 'bg-gray-200 text-gray-500 cursor-not-allowed border-gray-300'
+                  }`}
+                >
+                  {product.inStock ? 'Add to Cart' : 'Out of Stock'}
+                </button>
+
+                <button
+                  onClick={handleBuyNow}
+                  disabled={!product.inStock}
+                  className={`py-4 px-6 rounded-lg font-medium transition-colors ${
+                    product.inStock
+                      ? 'bg-black text-white hover:bg-gray-800'
+                      : 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                  }`}
+                >
+                  {product.inStock ? 'Buy Now' : 'Out of Stock'}
+                </button>
+              </div>
 
               <div className="flex space-x-3">
                 <button
