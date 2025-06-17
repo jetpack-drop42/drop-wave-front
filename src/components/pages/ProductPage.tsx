@@ -10,6 +10,7 @@ const ProductPage = () => {
   const { addItem } = useCart();
   const [selectedSize, setSelectedSize] = useState('M');
   const [isLiked, setIsLiked] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   // Mock product data - would come from API
   const product = {
@@ -20,7 +21,9 @@ const ProductPage = () => {
     description: 'A vibrant t-shirt featuring a beach sunset design. Perfect for summer vibes and casual wear. Made from 100% organic cotton for ultimate comfort.',
     images: [
       'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=600&h=600&fit=crop'
+      'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=600&h=600&fit=crop'
     ],
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
     inStock: true,
@@ -60,26 +63,31 @@ const ProductPage = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Product Images */}
-          <div className="space-y-4">
-            <div className="aspect-square bg-gray-100 rounded-2xl overflow-hidden">
+          {/* Product Images Grid */}
+          <div className="grid grid-cols-2 gap-4">
+            {/* Featured Main Image */}
+            <div className="col-span-2 aspect-square bg-gray-100 rounded-2xl overflow-hidden">
               <img
-                src={product.images[0]}
+                src={product.images[selectedImageIndex]}
                 alt={product.name}
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="grid grid-cols-4 gap-4">
-              {product.images.map((image, index) => (
-                <div key={index} className="aspect-square bg-gray-100 rounded-lg overflow-hidden cursor-pointer hover:opacity-75 transition-opacity">
-                  <img
-                    src={image}
-                    alt={`${product.name} ${index + 1}`}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              ))}
-            </div>
+            
+            {/* Thumbnail Grid */}
+            {product.images.slice(1).map((image, index) => (
+              <div 
+                key={index + 1} 
+                className="aspect-square bg-gray-100 rounded-lg overflow-hidden cursor-pointer hover:opacity-75 transition-opacity"
+                onClick={() => setSelectedImageIndex(index + 1)}
+              >
+                <img
+                  src={image}
+                  alt={`${product.name} ${index + 2}`}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            ))}
           </div>
 
           {/* Product Info */}
