@@ -90,7 +90,7 @@ const Homepage = () => {
               <h2 className="text-2xl font-bold">Limited-time Drops</h2>
             </div>
             <Link to="/drops" className="text-sm font-medium text-gray-700 hover:text-black transition-colors">
-              View all drops →
+              View all →
             </Link>
           </div>
           
@@ -106,16 +106,16 @@ const Homepage = () => {
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold">Featured Products</h2>
             <Link to="/products" className="text-sm font-medium text-gray-700 hover:text-black transition-colors">
-              View all products →
+              View all →
             </Link>
           </div>
           
-          <div className="grid grid-cols-3 gap-6 mb-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 mb-6">
             {featuredProducts.slice(0, 3).map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
             {featuredProducts.slice(3, 6).map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
