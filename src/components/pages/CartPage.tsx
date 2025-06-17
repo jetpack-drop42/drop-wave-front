@@ -11,6 +11,7 @@ const CartPage = () => {
   const totalWithShipping = getTotalPrice() + shippingCost;
 
   const handleSecureCheckout = () => {
+    console.log('Secure checkout clicked');
     // Navigate to checkout success page
     navigate('/checkout-success');
   };
@@ -152,7 +153,8 @@ const CartPage = () => {
 
                 <button 
                   onClick={handleSecureCheckout}
-                  className="w-full bg-black text-white py-4 rounded-lg font-medium hover:bg-gray-800 transition-colors flex items-center justify-center space-x-2 mb-4"
+                  className="w-full bg-black text-white py-4 rounded-lg font-medium hover:bg-gray-800 transition-colors flex items-center justify-center space-x-2 mb-4 cursor-pointer"
+                  type="button"
                 >
                   <Lock className="w-5 h-5" />
                   <span>Secure Checkout</span>
