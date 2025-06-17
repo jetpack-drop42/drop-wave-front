@@ -4,13 +4,13 @@ import { Clock, Bell, Star, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import CountdownTimer from '../ui/CountdownTimer';
 import { Button } from '../ui/button';
-import { useToast } from '@/hooks/use-toast';
+import NotifyMeOverlay from '../ui/NotifyMeOverlay';
 
 const AvailableSoonDropPage = () => {
   const dropStartDate = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000 + 10 * 60 * 60 * 1000);
-  const { toast } = useToast();
   const [email, setEmail] = useState('');
   const [isNotified, setIsNotified] = useState(false);
+  const [showNotifyOverlay, setShowNotifyOverlay] = useState(false);
 
   const dropDetails = {
     title: 'Exclusive Sneaker Drop',
@@ -25,14 +25,21 @@ const AvailableSoonDropPage = () => {
     if (!email) return;
     
     setIsNotified(true);
-    toast({
-      title: "You're on the list!",
-      description: "We'll notify you as soon as this drop goes live.",
-    });
+    setShowNotifyOverlay(true);
+  };
+
+  const hideNotifyOverlay = () => {
+    setShowNotifyOverlay(false);
   };
 
   return (
     <div className="min-h-screen bg-white">
+      <NotifyMeOverlay 
+        isVisible={showNotifyOverlay}
+        onClose={hideNotifyOverlay}
+        title={dropDetails.title}
+      />
+      
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Drop Header */}
         <div className="text-center mb-12">
