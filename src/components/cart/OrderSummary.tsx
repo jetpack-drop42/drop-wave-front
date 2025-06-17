@@ -25,8 +25,8 @@ const OrderSummary = ({ subtotal, shippingCost, total, items }: OrderSummaryProp
     console.log('Items in cart:', items);
     console.log('Total price:', total);
     try {
-      navigate('/checkout-success');
-      console.log('Navigation to checkout success initiated');
+      navigate('/checkout');
+      console.log('Navigation to checkout initiated');
     } catch (error) {
       console.error('Error navigating to checkout:', error);
     }

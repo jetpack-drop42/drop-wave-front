@@ -5,7 +5,6 @@ import CartHeader from '../cart/CartHeader';
 import EmptyCart from '../cart/EmptyCart';
 import CartItemsList from '../cart/CartItemsList';
 import OrderSummary from '../cart/OrderSummary';
-import { Button } from '../ui/button';
 
 const CartPage = () => {
   const { items, updateQuantity, removeItem, getTotalPrice, clearCart } = useCart();
@@ -37,11 +36,6 @@ const CartPage = () => {
                 total={totalWithShipping}
                 items={items}
               />
-              <Link to="/checkout">
-                <Button className="w-full" size="lg">
-                  Proceed to Checkout
-                </Button>
-              </Link>
             </div>
           </div>
         )}
