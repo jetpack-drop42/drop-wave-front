@@ -1,5 +1,4 @@
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import ProductImageGallery from '../product/ProductImageGallery';
@@ -9,6 +8,11 @@ import RelatedProducts from '../product/RelatedProducts';
 const ProductPage = () => {
   const { id } = useParams();
   const [currentImages, setCurrentImages] = useState<string[]>([]);
+
+  // Scroll to top when component mounts or product ID changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
 
   // Mock product data - would come from API
   const product = {
