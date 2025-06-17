@@ -1,32 +1,41 @@
-
 import { useState } from 'react';
 import HeroSection from '../sections/HeroSection';
 import DropCard from '../product/DropCard';
 import ProductCard from '../product/ProductCard';
+import { Drop, Product } from '../../types';
 import { Clock, Star } from 'lucide-react';
 
 const Homepage = () => {
   const [activeTab, setActiveTab] = useState('drops');
 
-  const featuredDrops = [
+  // Mock data for drops
+  const mockDrops: Drop[] = [
     {
       id: '1',
-      title: 'Abstract Shape Print',
-      image: '/lovable-uploads/dd78b53a-3b2d-49aa-afde-210881370822.png',
-      status: 'coming-soon',
-      startDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
+      title: 'Spring Awakening Collection',
+      image: '/lovable-uploads/38c9f9f3-e155-44d2-9677-f296e1781068.png',
+      status: 'live' as const,
+      endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days from now
+      price: 89
     },
     {
       id: '2',
-      title: 'Good Energy T-Shirt',
+      title: 'Summer Vibes Drop',
       image: '/lovable-uploads/dd78b53a-3b2d-49aa-afde-210881370822.png',
-      status: 'live',
-      endDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000),
-      price: 28,
+      status: 'coming-soon' as const,
+      startDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000) // 14 days from now
     },
+    {
+      id: '3',
+      title: 'Urban Essentials',
+      image: '/lovable-uploads/38c9f9f3-e155-44d2-9677-f296e1781068.png',
+      status: 'ended' as const,
+      endDate: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // 7 days ago
+      price: 75
+    }
   ];
 
-  const allProducts = [
+  const allProducts: Product[] = [
     {
       id: '3',
       name: 'Connected Hoodie',
@@ -105,7 +114,7 @@ const Homepage = () => {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-              {featuredDrops.map((drop) => (
+              {mockDrops.map((drop) => (
                 <DropCard key={drop.id} drop={drop} />
               ))}
             </div>
