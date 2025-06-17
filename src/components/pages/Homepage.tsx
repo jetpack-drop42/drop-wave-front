@@ -1,14 +1,12 @@
 
-import { useState } from 'react';
 import HeroSection from '../sections/HeroSection';
 import DropCard from '../product/DropCard';
 import ProductCard from '../product/ProductCard';
 import { Drop, Product } from '../../types';
-import { Clock, Star } from 'lucide-react';
+import { Clock } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Homepage = () => {
-  const [activeTab, setActiveTab] = useState('drops');
-
   // Mock data for drops - matching the mockups
   const mockDrops: Drop[] = [
     {
@@ -28,7 +26,7 @@ const Homepage = () => {
     }
   ];
 
-  const allProducts: Product[] = [
+  const featuredProducts: Product[] = [
     {
       id: '1',
       name: 'Premium Cotton Tee',
@@ -77,30 +75,6 @@ const Homepage = () => {
       description: 'Ceramic coffee mug perfect for morning coffee',
       isNew: true,
     },
-    {
-      id: '7',
-      name: 'Comfort Hoodie',
-      price: 42,
-      image: '/lovable-uploads/a0af2fd1-53d3-4482-9b34-5dd7a03c12df.png',
-      description: 'Cozy pullover hoodie for casual comfort',
-      isNew: true,
-    },
-    {
-      id: '8',
-      name: 'Travel Tumbler',
-      price: 24,
-      image: '/lovable-uploads/09b11c0a-f123-4891-be66-b516558a9817.png',
-      description: 'Insulated tumbler perfect for hot and cold drinks',
-      isNew: false,
-    },
-    {
-      id: '9',
-      name: 'Art Print Collection',
-      price: 20,
-      image: '/lovable-uploads/b0450473-ea7d-4288-a913-596c20960ef6.png',
-      description: 'Curated art print collection for your space',
-      isNew: true,
-    },
   ];
 
   return (
@@ -108,109 +82,45 @@ const Homepage = () => {
       <HeroSection />
       
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Navigation Tabs */}
-        <div className="flex space-x-8 border-b border-gray-200 mb-8">
-          <button
-            onClick={() => setActiveTab('drops')}
-            className={`pb-4 px-1 text-lg font-medium transition-colors relative ${
-              activeTab === 'drops'
-                ? 'text-black border-b-2 border-black'
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
-          >
-            Featured Drops
-          </button>
-          <button
-            onClick={() => setActiveTab('browse')}
-            className={`pb-4 px-1 text-lg font-medium transition-colors relative ${
-              activeTab === 'browse'
-                ? 'text-black border-b-2 border-black'
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
-          >
-            Browse
-          </button>
-          <button
-            onClick={() => setActiveTab('collection')}
-            className={`pb-4 px-1 text-lg font-medium transition-colors relative ${
-              activeTab === 'collection'
-                ? 'text-black border-b-2 border-black'
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
-          >
-            Collection 1
-          </button>
-        </div>
-
         {/* Featured Drops Section */}
-        {activeTab === 'drops' && (
-          <div>
-            <div className="flex items-center space-x-2 mb-6">
+        <div className="mb-16">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center space-x-2">
               <Clock className="w-5 h-5 text-orange-500" />
               <h2 className="text-2xl font-bold">Limited-time Drops</h2>
             </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-              {mockDrops.map((drop) => (
-                <DropCard key={drop.id} drop={drop} />
-              ))}
-            </div>
-
-            <h2 className="text-2xl font-bold mb-6">All Products</h2>
-            <div className="grid grid-cols-3 gap-6 mb-6">
-              {allProducts.slice(0, 3).map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-            <div className="grid grid-cols-3 gap-6">
-              {allProducts.slice(3, 6).map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
+            <Link to="/drops" className="text-sm font-medium text-gray-700 hover:text-black transition-colors">
+              View all drops →
+            </Link>
           </div>
-        )}
-
-        {/* Browse Section */}
-        {activeTab === 'browse' && (
-          <div>
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold">All Products</h2>
-              <div className="flex items-center space-x-4">
-                <select className="border border-gray-300 rounded-lg px-3 py-2 text-sm">
-                  <option>Sort by: Featured</option>
-                  <option>Price: Low to High</option>
-                  <option>Price: High to Low</option>
-                  <option>Newest</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {allProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {mockDrops.map((drop) => (
+              <DropCard key={drop.id} drop={drop} />
+            ))}
           </div>
-        )}
+        </div>
 
-        {/* Collection Section */}
-        {activeTab === 'collection' && (
-          <div>
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold mb-4">Motivational Collection</h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Discover our curated collection of motivational designs, featuring inspiring messages 
-                and uplifting artwork perfect for daily motivation.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {allProducts.filter(product => ['2', '3', '4'].includes(product.id)).map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
+        {/* Featured Products Section */}
+        <div>
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold">Featured Products</h2>
+            <Link to="/products" className="text-sm font-medium text-gray-700 hover:text-black transition-colors">
+              View all products →
+            </Link>
           </div>
-        )}
+          
+          <div className="grid grid-cols-3 gap-6 mb-6">
+            {featuredProducts.slice(0, 3).map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+          <div className="grid grid-cols-3 gap-6">
+            {featuredProducts.slice(3, 6).map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
