@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Clock, Star, ShoppingBag, Minus, Plus } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
 import CountdownTimer from '../ui/CountdownTimer';
 import { Button } from '../ui/button';
@@ -8,6 +8,7 @@ import { Button } from '../ui/button';
 const WaterBottleDropPage = () => {
   const dropEndDate = new Date(Date.now() + 2 * 24 * 60 * 60 * 1000 + 14 * 60 * 60 * 1000 + 37 * 60 * 1000);
   const { addItem } = useCart();
+  const navigate = useNavigate();
   
   const [selectedProduct, setSelectedProduct] = useState({
     id: '2',
@@ -50,6 +51,10 @@ const WaterBottleDropPage = () => {
         image: selectedProduct.image
       });
     }
+  };
+
+  const handleBuyNow = () => {
+    navigate('/drop/water-bottle');
   };
 
   const incrementQuantity = () => {
