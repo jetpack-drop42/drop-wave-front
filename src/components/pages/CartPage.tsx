@@ -1,13 +1,19 @@
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Plus, Minus, X, ShoppingBag, Lock } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 
 const CartPage = () => {
   const { items, updateQuantity, removeItem, getTotalPrice, clearCart } = useCart();
+  const navigate = useNavigate();
 
   const shippingCost = getTotalPrice() > 50 ? 0 : 8.99;
   const totalWithShipping = getTotalPrice() + shippingCost;
+
+  const handleSecureCheckout = () => {
+    // Navigate to checkout success page
+    navigate('/checkout-success');
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -144,7 +150,10 @@ const CartPage = () => {
                   </div>
                 </div>
 
-                <button className="w-full bg-black text-white py-4 rounded-lg font-medium hover:bg-gray-800 transition-colors flex items-center justify-center space-x-2 mb-4">
+                <button 
+                  onClick={handleSecureCheckout}
+                  className="w-full bg-black text-white py-4 rounded-lg font-medium hover:bg-gray-800 transition-colors flex items-center justify-center space-x-2 mb-4"
+                >
                   <Lock className="w-5 h-5" />
                   <span>Secure Checkout</span>
                 </button>
