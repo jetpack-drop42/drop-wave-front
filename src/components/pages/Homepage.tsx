@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import HeroSection from '../sections/HeroSection';
 import DropCard from '../product/DropCard';
@@ -8,60 +9,56 @@ import { Clock, Star } from 'lucide-react';
 const Homepage = () => {
   const [activeTab, setActiveTab] = useState('drops');
 
-  // Mock data for drops
+  // Mock data for drops - matching the mockups
   const mockDrops: Drop[] = [
     {
       id: '1',
-      title: 'Spring Awakening Collection',
+      title: 'Abstract Shape Print',
       image: '/lovable-uploads/38c9f9f3-e155-44d2-9677-f296e1781068.png',
-      status: 'live' as const,
-      endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days from now
-      price: 89
+      status: 'coming-soon' as const,
+      startDate: new Date(Date.now() + 8 * 60 * 60 * 1000), // 8 hours from now
     },
     {
       id: '2',
-      title: 'Summer Vibes Drop',
+      title: 'Good Energy T-Shirt',
       image: '/lovable-uploads/dd78b53a-3b2d-49aa-afde-210881370822.png',
-      status: 'coming-soon' as const,
-      startDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000) // 14 days from now
-    },
-    {
-      id: '3',
-      title: 'Urban Essentials',
-      image: '/lovable-uploads/38c9f9f3-e155-44d2-9677-f296e1781068.png',
-      status: 'ended' as const,
-      endDate: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // 7 days ago
-      price: 75
+      status: 'live' as const,
+      endDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000 + 14 * 60 * 60 * 1000 + 37 * 60 * 1000), // 2d 14h 37m from now
+      price: 28
     }
   ];
 
   const allProducts: Product[] = [
     {
-      id: '3',
+      id: '1',
       name: 'Connected Hoodie',
       price: 45,
       image: '/lovable-uploads/dd78b53a-3b2d-49aa-afde-210881370822.png',
+      description: 'Everything is connected hoodie design',
       isNew: false,
     },
     {
-      id: '4',
+      id: '2',
       name: 'Flower Tote Bag',
       price: 20,
       image: '/lovable-uploads/dd78b53a-3b2d-49aa-afde-210881370822.png',
+      description: 'Beautiful flower design tote bag',
       isNew: true,
     },
     {
-      id: '5',
+      id: '3',
       name: 'Beach Sunset Tee',
       price: 28,
       image: '/lovable-uploads/38c9f9f3-e155-44d2-9677-f296e1781068.png',
+      description: 'Vibrant beach sunset design',
       isNew: true,
     },
     {
-      id: '6',
+      id: '4',
       name: 'Mountain Line Tee',
       price: 28,
       image: '/lovable-uploads/38c9f9f3-e155-44d2-9677-f296e1781068.png',
+      description: 'Minimalist mountain line design',
       isNew: false,
     },
   ];
@@ -163,7 +160,7 @@ const Homepage = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {allProducts.filter(product => ['5', '6'].includes(product.id)).map((product) => (
+              {allProducts.filter(product => ['3', '4'].includes(product.id)).map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>

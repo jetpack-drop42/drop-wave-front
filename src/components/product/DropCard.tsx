@@ -22,10 +22,10 @@ const DropCard = ({ drop }: DropCardProps) => {
   const isComingSoon = drop.status === 'coming-soon';
 
   return (
-    <div className="group relative bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300">
+    <div className="group relative bg-gray-100 rounded-2xl overflow-hidden hover:shadow-lg transition-all duration-300">
       <div className="aspect-square bg-gray-100 relative overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=400&fit=crop"
+          src={drop.image}
           alt={drop.title}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
@@ -33,12 +33,12 @@ const DropCard = ({ drop }: DropCardProps) => {
         {/* Status Badge */}
         <div className="absolute top-4 left-4">
           {isLive && (
-            <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+            <span className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-medium">
               Drop is live!
             </span>
           )}
           {isComingSoon && (
-            <span className="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+            <span className="bg-gray-500 text-white px-3 py-1 rounded-full text-sm font-medium">
               Available soon
             </span>
           )}
@@ -52,21 +52,24 @@ const DropCard = ({ drop }: DropCardProps) => {
         )}
       </div>
 
-      <div className="p-6">
+      <div className="p-6 bg-white">
         <h3 className="text-xl font-bold mb-2">{drop.title}</h3>
         
         {isComingSoon && drop.startDate && (
           <div className="mb-4">
             <div className="flex items-center text-sm text-gray-600 mb-2">
               <Clock className="w-4 h-4 mr-1" />
-              <CountdownTimer targetDate={drop.startDate} />
+              Starts in <CountdownTimer targetDate={drop.startDate} />
             </div>
           </div>
         )}
 
-        {isLive && drop.price && (
+        {isLive && drop.endDate && (
           <div className="mb-4">
-            <span className="text-2xl font-bold">${drop.price}</span>
+            <div className="flex items-center text-sm text-gray-600 mb-2">
+              <Clock className="w-4 h-4 mr-1" />
+              Ends in <CountdownTimer targetDate={drop.endDate} />
+            </div>
           </div>
         )}
 

@@ -9,6 +9,7 @@ interface Product {
   price: number;
   image: string;
   isNew?: boolean;
+  description?: string;
 }
 
 interface ProductCardProps {
@@ -23,13 +24,13 @@ const ProductCard = ({ product }: ProductCardProps) => {
       <Link to={`/product/${product.id}`} className="block">
         <div className="aspect-square bg-gray-100 relative overflow-hidden">
           <img
-            src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=400&fit=crop"
+            src={product.image}
             alt={product.name}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
           
           {product.isNew && (
-            <span className="absolute top-3 left-3 bg-blue-500 text-white px-2 py-1 rounded-full text-xs font-medium">
+            <span className="absolute top-3 left-3 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-medium">
               New
             </span>
           )}
@@ -62,7 +63,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             {product.name}
           </h3>
           <p className="text-lg font-bold text-gray-900">
-            ${product.price}
+            ${product.price.toFixed(2)}
           </p>
         </Link>
       </div>
