@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
 
 const Header = () => {
-  const { getTotalItems, toggleCart } = useCart();
+  const { getTotalItems } = useCart();
   const totalItems = getTotalItems();
 
   return (
@@ -31,8 +31,8 @@ const Header = () => {
           </nav>
 
           <div className="flex items-center space-x-4">
-            <button
-              onClick={toggleCart}
+            <Link
+              to="/cart"
               className="relative p-2 hover:bg-gray-100 rounded-full transition-colors"
             >
               <ShoppingBag className="w-6 h-6" />
@@ -41,7 +41,7 @@ const Header = () => {
                   {totalItems}
                 </span>
               )}
-            </button>
+            </Link>
             
             <button className="md:hidden p-2 hover:bg-gray-100 rounded-full transition-colors">
               <Menu className="w-6 h-6" />

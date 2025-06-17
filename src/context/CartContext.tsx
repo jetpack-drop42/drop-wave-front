@@ -18,12 +18,10 @@ interface AddedToBagState {
 
 interface CartContextType {
   items: CartItem[];
-  isOpen: boolean;
   addedToBag: AddedToBagState;
   addItem: (item: Omit<CartItem, 'quantity'>) => void;
   removeItem: (id: string, size?: string, color?: string) => void;
   updateQuantity: (id: string, quantity: number, size?: string, color?: string) => void;
-  toggleCart: () => void;
   getTotalItems: () => number;
   getTotalPrice: () => number;
   clearCart: () => void;
@@ -42,7 +40,6 @@ export const useCart = () => {
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [items, setItems] = useState<CartItem[]>([]);
-  const [isOpen, setIsOpen] = useState(false);
   const [addedToBag, setAddedToBag] = useState<AddedToBagState>({
     isVisible: false,
     itemName: ''
@@ -91,8 +88,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     ));
   };
 
-  const toggleCart = () => setIsOpen(!isOpen);
-
   const getTotalItems = () => items.reduce((total, item) => total + item.quantity, 0);
 
   const getTotalPrice = () => items.reduce((total, item) => total + (item.price * item.quantity), 0);
@@ -109,12 +104,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   return (
     <CartContext.Provider value={{
       items,
-      isOpen,
       addedToBag,
       addItem,
       removeItem,
       updateQuantity,
-      toggleCart,
       getTotalItems,
       getTotalPrice,
       clearCart,

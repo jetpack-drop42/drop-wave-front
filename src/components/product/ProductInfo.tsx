@@ -1,6 +1,8 @@
+
 import { useState } from 'react';
 import { Share2 } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
+import { useNavigate } from 'react-router-dom';
 
 interface Color {
   name: string;
@@ -27,7 +29,8 @@ interface ProductInfoProps {
 }
 
 const ProductInfo = ({ product, onColorChange }: ProductInfoProps) => {
-  const { addItem, toggleCart } = useCart();
+  const { addItem } = useCart();
+  const navigate = useNavigate();
   const [selectedSize, setSelectedSize] = useState('M');
   const [selectedColor, setSelectedColor] = useState(product.colors?.[0] || null);
 
@@ -57,9 +60,9 @@ const ProductInfo = ({ product, onColorChange }: ProductInfoProps) => {
       color: selectedColor?.name
     });
     
-    // Small delay to show the overlay before navigation
+    // Navigate to cart after adding item
     setTimeout(() => {
-      toggleCart();
+      navigate('/cart');
     }, 2500);
   };
 
