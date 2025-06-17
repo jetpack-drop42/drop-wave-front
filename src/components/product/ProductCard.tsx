@@ -10,6 +10,7 @@ interface Product {
   image: string;
   isNew?: boolean;
   description?: string;
+  category?: string;
 }
 
 interface ProductCardProps {
