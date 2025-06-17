@@ -96,7 +96,7 @@ const Homepage = () => {
     <div className="min-h-screen bg-white">
       <HeroSection />
       
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Category Tabs */}
         <div className="mb-8">
           <div className="flex space-x-2 overflow-x-auto pb-2 scrollbar-hide">
