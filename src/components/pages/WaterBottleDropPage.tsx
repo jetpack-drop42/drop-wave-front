@@ -1,14 +1,17 @@
+
 import { useState } from 'react';
 import { Clock, Star, ShoppingBag, Minus, Plus } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
 import CountdownTimer from '../ui/CountdownTimer';
 import { Button } from '../ui/button';
+import ProductImageGallery from '../product/ProductImageGallery';
 
 const WaterBottleDropPage = () => {
   const dropEndDate = new Date(Date.now() + 2 * 24 * 60 * 60 * 1000 + 14 * 60 * 60 * 1000 + 37 * 60 * 1000);
   const { addItem } = useCart();
   const navigate = useNavigate();
+  const [currentImages, setCurrentImages] = useState<string[]>([]);
   
   const [selectedProduct, setSelectedProduct] = useState({
     id: '2',
@@ -16,7 +19,11 @@ const WaterBottleDropPage = () => {
     price: 22,
     image: '/lovable-uploads/09b11c0a-f123-4891-be66-b516558a9817.png',
     description: 'Premium stainless steel water bottle with insulation. Perfect for staying hydrated on the go.',
-    stock: 47
+    stock: 47,
+    images: [
+      '/lovable-uploads/09b11c0a-f123-4891-be66-b516558a9817.png',
+      '/lovable-uploads/a5baf921-1082-4125-8cc8-ccb252062a6b.png'
+    ]
   });
   
   const [quantity, setQuantity] = useState(1);
@@ -26,19 +33,31 @@ const WaterBottleDropPage = () => {
       id: '2',
       name: 'Stainless Steel Water Bottle',
       price: 22,
-      stock: 47
+      stock: 47,
+      images: [
+        '/lovable-uploads/09b11c0a-f123-4891-be66-b516558a9817.png',
+        '/lovable-uploads/a5baf921-1082-4125-8cc8-ccb252062a6b.png'
+      ]
     },
     {
       id: '7',
       name: 'Water Bottle - Matte Black',
       price: 25,
-      stock: 23
+      stock: 23,
+      images: [
+        '/lovable-uploads/17b70eb0-ff9a-4af8-80ad-5fdd4ab6d334.png',
+        '/lovable-uploads/a0af2fd1-53d3-4482-9b34-5dd7a03c12df.png'
+      ]
     },
     {
       id: '8',
       name: 'Water Bottle - Rose Gold',
       price: 28,
-      stock: 12
+      stock: 12,
+      images: [
+        '/lovable-uploads/a0af2fd1-53d3-4482-9b34-5dd7a03c12df.png',
+        '/lovable-uploads/17b70eb0-ff9a-4af8-80ad-5fdd4ab6d334.png'
+      ]
     }
   ];
 
@@ -68,6 +87,20 @@ const WaterBottleDropPage = () => {
       setQuantity(quantity - 1);
     }
   };
+
+  const handleVariantChange = (variant: typeof variants[0]) => {
+    setSelectedProduct({
+      ...selectedProduct,
+      id: variant.id,
+      name: variant.name,
+      price: variant.price,
+      stock: variant.stock,
+      images: variant.images
+    });
+    setCurrentImages(variant.images);
+  };
+
+  const displayImages = currentImages.length > 0 ? currentImages : selectedProduct.images;
 
   return (
     <div className="min-h-screen bg-white">
@@ -101,14 +134,8 @@ const WaterBottleDropPage = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
-          {/* Product Image */}
-          <div className="aspect-square bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl overflow-hidden">
-            <img
-              src={selectedProduct.image}
-              alt={selectedProduct.name}
-              className="w-full h-full object-cover"
-            />
-          </div>
+          {/* Product Images with Thumbnails */}
+          <ProductImageGallery images={displayImages} productName={selectedProduct.name} />
 
           {/* Product Details */}
           <div className="space-y-6">
@@ -132,13 +159,7 @@ const WaterBottleDropPage = () => {
                 {variants.map((variant) => (
                   <button
                     key={variant.id}
-                    onClick={() => setSelectedProduct({
-                      ...selectedProduct,
-                      id: variant.id,
-                      name: variant.name,
-                      price: variant.price,
-                      stock: variant.stock
-                    })}
+                    onClick={() => handleVariantChange(variant)}
                     className={`w-full text-left p-3 rounded-lg border transition-colors ${
                       selectedProduct.id === variant.id
                         ? 'border-black bg-gray-50'
