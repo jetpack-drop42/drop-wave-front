@@ -1,8 +1,7 @@
-
-import { ShoppingBag, Menu, X } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { useCart } from '../../context/CartContext';
-import { useState } from 'react';
+import { ShoppingBag, Menu, X } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useCart } from "../../context/CartContext";
+import { useState } from "react";
 
 const Header = () => {
   const { getTotalItems } = useCart();
@@ -29,16 +28,28 @@ const Header = () => {
           </Link>
 
           <nav className="hidden md:flex items-center space-x-8">
-            <Link to="/drops" className="text-gray-700 hover:text-black transition-colors">
+            <Link
+              to="/drops"
+              className="text-gray-700 hover:text-black transition-colors"
+            >
               Drops
             </Link>
-            <Link to="/products" className="text-gray-700 hover:text-black transition-colors">
+            <Link
+              to="/products"
+              className="text-gray-700 hover:text-black transition-colors"
+            >
               Products
             </Link>
-            <Link to="/about" className="text-gray-700 hover:text-black transition-colors">
+            <Link
+              to="/about"
+              className="text-gray-700 hover:text-black transition-colors"
+            >
               About
             </Link>
-            <Link to={isAuthenticated ? "/account" : "/signin"} className="text-gray-700 hover:text-black transition-colors">
+            <Link
+              to={isAuthenticated ? "/account" : "/signin"}
+              className="text-gray-700 hover:text-black transition-colors"
+            >
               Profile
             </Link>
           </nav>
@@ -55,12 +66,16 @@ const Header = () => {
                 </span>
               )}
             </Link>
-            
-            <button 
+
+            <button
               className="md:hidden p-2 hover:bg-gray-100 rounded-full transition-colors"
               onClick={toggleMobileMenu}
             >
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isMobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
           </div>
         </div>
@@ -69,29 +84,29 @@ const Header = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden border-t border-gray-100 bg-white">
             <nav className="px-4 py-4 space-y-4">
-              <Link 
-                to="/drops" 
+              <Link
+                to="/drops"
                 className="block text-gray-700 hover:text-black transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Drops
               </Link>
-              <Link 
-                to="/products" 
+              <Link
+                to="/products"
                 className="block text-gray-700 hover:text-black transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Products
               </Link>
-              <Link 
-                to="/about" 
+              <Link
+                to="/about"
                 className="block text-gray-700 hover:text-black transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 About
               </Link>
-              <Link 
-                to={isAuthenticated ? "/account" : "/signin"} 
+              <Link
+                to={isAuthenticated ? "/account" : "/signin"}
                 className="block text-gray-700 hover:text-black transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >

@@ -1,13 +1,12 @@
-
-import { Clock, Bell } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import CountdownTimer from '../ui/CountdownTimer';
+import { Clock, Bell } from "lucide-react";
+import { Link } from "react-router-dom";
+import CountdownTimer from "../ui/CountdownTimer";
 
 interface Drop {
   id: string;
   title: string;
   image: string;
-  status: 'coming-soon' | 'live' | 'ended';
+  status: "coming-soon" | "live" | "ended";
   startDate?: Date;
   endDate?: Date;
   price?: number;
@@ -18,16 +17,16 @@ interface DropCardProps {
 }
 
 const DropCard = ({ drop }: DropCardProps) => {
-  const isLive = drop.status === 'live';
-  const isComingSoon = drop.status === 'coming-soon';
+  const isLive = drop.status === "live";
+  const isComingSoon = drop.status === "coming-soon";
 
   // Map drop IDs to specific routes
   const getDropRoute = (dropId: string) => {
     switch (dropId) {
-      case 'water-bottle':
-        return '/drop/water-bottle';
-      case 'premium-tee':
-        return '/drop/premium-tee';
+      case "water-bottle":
+        return "/drop/water-bottle";
+      case "premium-tee":
+        return "/drop/premium-tee";
       default:
         return `/drop/${dropId}`;
     }
@@ -35,13 +34,16 @@ const DropCard = ({ drop }: DropCardProps) => {
 
   return (
     <div className="group relative bg-gray-100 rounded-2xl overflow-hidden hover:shadow-lg transition-all duration-300">
-      <Link to={getDropRoute(drop.id)} className="aspect-square bg-gray-100 relative overflow-hidden block">
+      <Link
+        to={getDropRoute(drop.id)}
+        className="aspect-square bg-gray-100 relative overflow-hidden block"
+      >
         <img
           src={drop.image}
           alt={drop.title}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
-        
+
         {/* Status Badge */}
         <div className="absolute top-4 left-4">
           {isLive && (
@@ -57,7 +59,7 @@ const DropCard = ({ drop }: DropCardProps) => {
         </div>
 
         {/* Countdown Timer */}
-        {(isLive && drop.endDate) && (
+        {isLive && drop.endDate && (
           <div className="absolute top-4 right-4 bg-black/80 text-white px-3 py-1 rounded-full text-sm">
             <CountdownTimer targetDate={drop.endDate} />
           </div>
@@ -66,7 +68,7 @@ const DropCard = ({ drop }: DropCardProps) => {
 
       <div className="p-6 bg-white">
         <h3 className="text-xl font-bold mb-2">{drop.title}</h3>
-        
+
         {isComingSoon && drop.startDate && (
           <div className="mb-4">
             <div className="flex items-center text-sm text-gray-600 mb-2">
@@ -99,7 +101,7 @@ const DropCard = ({ drop }: DropCardProps) => {
               to={getDropRoute(drop.id)}
               className="block w-full bg-black text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors text-center"
             >
-              {isLive ? 'Buy Now' : 'View Drop'}
+              {isLive ? "Buy Now" : "View Drop"}
             </Link>
           )}
         </div>

@@ -1,8 +1,14 @@
-
-import { Link } from 'react-router-dom';
-import { Check, Share2, Instagram, Twitter, Facebook, ArrowLeft } from 'lucide-react';
-import { useCart } from '../../context/CartContext';
-import { useEffect } from 'react';
+import { Link } from "react-router-dom";
+import {
+  Check,
+  Share2,
+  Instagram,
+  Twitter,
+  Facebook,
+  ArrowLeft,
+} from "lucide-react";
+import { useCart } from "../../context/CartContext";
+import { useEffect } from "react";
 
 const CheckoutSuccessPage = () => {
   const { clearCart } = useCart();
@@ -15,21 +21,36 @@ const CheckoutSuccessPage = () => {
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
-        title: 'Check out my latest purchase!',
-        text: 'Just got some amazing items from this store!',
+        title: "Check out my latest purchase!",
+        text: "Just got some amazing items from this store!",
         url: window.location.origin,
       });
     } else {
       // Fallback for browsers that don't support Web Share API
       navigator.clipboard.writeText(window.location.origin);
-      alert('Link copied to clipboard!');
+      alert("Link copied to clipboard!");
     }
   };
 
   const socialLinks = [
-    { name: 'Instagram', icon: Instagram, url: 'https://instagram.com', color: 'hover:text-pink-600' },
-    { name: 'Twitter', icon: Twitter, url: 'https://twitter.com', color: 'hover:text-blue-400' },
-    { name: 'Facebook', icon: Facebook, url: 'https://facebook.com', color: 'hover:text-blue-600' },
+    {
+      name: "Instagram",
+      icon: Instagram,
+      url: "https://instagram.com",
+      color: "hover:text-pink-600",
+    },
+    {
+      name: "Twitter",
+      icon: Twitter,
+      url: "https://twitter.com",
+      color: "hover:text-blue-400",
+    },
+    {
+      name: "Facebook",
+      icon: Facebook,
+      url: "https://facebook.com",
+      color: "hover:text-blue-600",
+    },
   ];
 
   return (
@@ -51,19 +72,22 @@ const CheckoutSuccessPage = () => {
           <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <Check className="w-8 h-8 text-green-600" />
           </div>
-          
+
           <h1 className="text-3xl font-bold text-gray-900 mb-4">
             Order Confirmed!
           </h1>
-          
+
           <p className="text-gray-600 mb-8 text-lg">
-            Thank you for your purchase. Your order has been successfully placed and you'll receive a confirmation email shortly.
+            Thank you for your purchase. Your order has been successfully placed
+            and you'll receive a confirmation email shortly.
           </p>
 
           <div className="bg-gray-50 rounded-lg p-6 mb-8">
             <h3 className="font-semibold text-gray-900 mb-2">Order Details</h3>
             <p className="text-sm text-gray-600">Order #12345</p>
-            <p className="text-sm text-gray-600">Estimated delivery: 3-5 business days</p>
+            <p className="text-sm text-gray-600">
+              Estimated delivery: 3-5 business days
+            </p>
           </div>
 
           {/* Share Section */}
@@ -74,7 +98,7 @@ const CheckoutSuccessPage = () => {
             <p className="text-gray-600 mb-6">
               Let your friends know about your great finds!
             </p>
-            
+
             <button
               onClick={handleShare}
               className="w-full bg-black text-white py-3 px-6 rounded-lg font-medium hover:bg-gray-800 transition-colors flex items-center justify-center space-x-2 mb-6"
@@ -86,13 +110,11 @@ const CheckoutSuccessPage = () => {
 
           {/* Follow Section */}
           <div className="border-t border-gray-200 pt-8">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">
-              Follow Us
-            </h2>
+            <h2 className="text-xl font-bold text-gray-900 mb-4">Follow Us</h2>
             <p className="text-gray-600 mb-6">
               Stay updated with our latest drops and exclusive offers
             </p>
-            
+
             <div className="flex justify-center space-x-4">
               {socialLinks.map((social) => {
                 const IconComponent = social.icon;
