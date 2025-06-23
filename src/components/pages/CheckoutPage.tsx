@@ -90,8 +90,20 @@ const CheckoutPage = () => {
     setIsLoading(true);
 
     try {
-      // If user wants to create an account and isn't authenticated
-      if (showAccountCreation && !isAuthenticated && data.password) {
+      // Ensure user is either authenticated or creates a guest account
+      if (!isAuthenticated) {
+        if (!showAccountCreation || !data.password) {
+          toast({
+            title: "Authentication required",
+            description:
+              "Please sign in or create an account to proceed with checkout",
+            variant: "destructive",
+          });
+          setIsLoading(false);
+          return;
+        }
+
+        // Create new account if user chose to do so
         const { user: newUser, error: signUpError } = await signUp(
           data.email,
           data.password,
@@ -108,6 +120,21 @@ const CheckoutPage = () => {
           setIsLoading(false);
           return;
         }
+
+        // Wait a moment for the auth state to update
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+      }
+
+      // If we get here and still no user, something went wrong
+      if (!user && !showAccountCreation) {
+        toast({
+          title: "Authentication required",
+          description:
+            "Please sign in or create an account to proceed with checkout",
+          variant: "destructive",
+        });
+        setIsLoading(false);
+        return;
       }
 
       // Create Stripe checkout session
