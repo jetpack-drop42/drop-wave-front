@@ -34,6 +34,7 @@ interface CartContextType {
   items: CartItem[];
   addedToBag: AddedToBagState;
   loading: boolean;
+  cartId: string | null;
   addItem: (item: Omit<CartItem, "quantity" | "cart_item_id">) => Promise<void>;
   removeItem: (id: string, size?: string, color?: string) => Promise<void>;
   updateQuantity: (
@@ -340,6 +341,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         items,
         addedToBag,
         loading,
+        cartId,
         addItem,
         removeItem,
         updateQuantity,

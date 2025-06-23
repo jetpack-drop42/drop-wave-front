@@ -127,20 +127,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         },
       });
 
-      if (data.user && !error) {
-        // Create extended user profile
-        const { error: profileError } = await supabase
-          .from("users_extended")
-          .insert({
-            id: data.user.id,
-            role: "user",
-          });
-
-        if (profileError) {
-          console.error("Error creating user profile:", profileError);
-        }
-      }
-
       return { user: data.user, error };
     } catch (error) {
       console.error("Error signing up:", error);

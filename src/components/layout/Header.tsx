@@ -1,16 +1,16 @@
 import { ShoppingBag, Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
+import { useAuth } from "../../context/AuthContext";
 import { useState } from "react";
 
 const Header = () => {
   const { getTotalItems } = useCart();
+  const { user } = useAuth();
   const totalItems = getTotalItems();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // TODO: Replace with actual auth state when Supabase is integrated
-  const isAuthenticated = false;
-  const user = null;
+  const isAuthenticated = !!user;
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -50,26 +50,30 @@ const Header = () => {
               to={isAuthenticated ? "/account" : "/signin"}
               className="text-gray-700 hover:text-black transition-colors"
             >
-              Profile
+              {isAuthenticated ? "My Account" : "Sign In"}
             </Link>
-          </nav>
-
-          <div className="flex items-center space-x-4">
-            <Link
-              to="/cart"
-              className="relative p-2 hover:bg-gray-100 rounded-full transition-colors"
-            >
-              <ShoppingBag className="w-6 h-6" />
+            <Link to="/cart" className="relative">
+              <ShoppingBag className="w-6 h-6 text-gray-700 hover:text-black transition-colors" />
               {totalItems > 0 && (
-                <span className="absolute -top-1 -right-1 bg-black text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 bg-black text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
                   {totalItems}
                 </span>
               )}
             </Link>
+          </nav>
 
+          <div className="md:hidden flex items-center space-x-4">
+            <Link to="/cart" className="relative">
+              <ShoppingBag className="w-6 h-6 text-gray-700" />
+              {totalItems > 0 && (
+                <span className="absolute -top-2 -right-2 bg-black text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                  {totalItems}
+                </span>
+              )}
+            </Link>
             <button
-              className="md:hidden p-2 hover:bg-gray-100 rounded-full transition-colors"
               onClick={toggleMobileMenu}
+              className="text-gray-700 hover:text-black"
             >
               {isMobileMenuOpen ? (
                 <X className="w-6 h-6" />
@@ -80,7 +84,6 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Mobile menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden border-t border-gray-100 bg-white">
             <nav className="px-4 py-4 space-y-4">
@@ -110,7 +113,7 @@ const Header = () => {
                 className="block text-gray-700 hover:text-black transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Profile
+                {isAuthenticated ? "My Account" : "Sign In"}
               </Link>
             </nav>
           </div>

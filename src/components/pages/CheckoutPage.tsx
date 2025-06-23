@@ -75,7 +75,7 @@ interface StripeCheckoutResponse {
 const CheckoutPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showAccountCreation, setShowAccountCreation] = useState(false);
-  const { items, getTotalPrice, loading: cartLoading } = useCart();
+  const { items, getTotalPrice, loading: cartLoading, cartId } = useCart();
   const { user, signUp } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -138,6 +138,8 @@ const CheckoutPage = () => {
           zipCode: data.zipCode,
           country: data.country,
           userId: user?.id || "",
+          cartId: cartId || "",
+          productIds: items.map((item) => item.product_id).join(","),
           shippingCost: shippingCost.toString(),
           totalAmount: totalWithShipping.toString(),
         },
@@ -153,7 +155,7 @@ const CheckoutPage = () => {
       };
 
       const response = await fetch(
-        "http://localhost:8080/stripe/checkout-session",
+        "https://d3d93ca68aff.apps-tunnel.monday.app/stripe/checkout-session",
         {
           method: "POST",
           headers: {
