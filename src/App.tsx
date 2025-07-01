@@ -20,6 +20,7 @@ import SignUpPage from "./components/pages/SignUpPage";
 import AccountPage from "./components/pages/AccountPage";
 import NotFound from "./pages/NotFound";
 import AddedToBagOverlay from "./components/cart/AddedToBagOverlay";
+import Drop42Badge from "./components/ui/Drop42Badge";
 
 function AppContent() {
   const { addedToBag, hideAddedToBag, getTotalItems } = useCart();
@@ -52,6 +53,9 @@ function AppContent() {
         itemName={addedToBag.itemName}
         cartCount={getTotalItems()}
       />
+
+      {/* Drop42 Badge - Bottom Center */}
+      <Drop42Badge />
     </div>
   );
 }
