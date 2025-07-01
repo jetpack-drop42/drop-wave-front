@@ -31,7 +31,7 @@ const Homepage = () => {
         const { data, error } = await supabase
           .from("products")
           .select("*")
-          .eq("store_id", "3d79c145-6bf4-46cd-822f-ec36de4328d5")
+          .eq("store_id", import.meta.env.VITE_STORE_ID || "")
           .order("created_at", { ascending: false });
         console.log(data);
 

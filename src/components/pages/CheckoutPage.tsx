@@ -182,7 +182,7 @@ const CheckoutPage = () => {
       };
 
       const response = await fetch(
-        "https://d3d93ca68aff.apps-tunnel.monday.app/stripe/checkout-session",
+        "https://api.drop42.jtpk.app/stripe/checkout-session",
         {
           method: "POST",
           headers: {
