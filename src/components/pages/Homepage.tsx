@@ -16,13 +16,13 @@ const Homepage = () => {
 
   const categories = [
     "All",
-    "Running Shoes", 
-    "Casual Sneakers", 
-    "Athletic Footwear", 
-    "Dress Shoes"
+    "Clothing",
+    "Accessories",
+    "Home & Living",
+    "Art & Prints",
   ];
 
-  // Existing fetch products logic remains unchanged
+  // Fetch products from Supabase
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -44,14 +44,14 @@ const Homepage = () => {
           price: product.price,
           image: product.image_url || "/placeholder.svg",
           description: product.description || "",
-          isNew: false,
-          category: "Running Shoes", 
+          isNew: false, // You might want to add logic to determine if a product is new
+          category: "Clothing", // You might want to add a category field to your database
         }));
 
         setProducts(transformedProducts);
       } catch (err) {
         console.error("Error fetching products:", err);
-        setError("Failed to load shoes");
+        setError("Failed to load products");
       } finally {
         setLoading(false);
       }
@@ -60,18 +60,18 @@ const Homepage = () => {
     fetchProducts();
   }, []);
 
-  // Modify drops to be shoe-specific
+  // Mock data for drops - you might want to create a drops table in the future
   const mockDrops: Drop[] = [
     {
-      id: "premium-runner",
-      title: "Elite Runner Collection",
+      id: "premium-tee",
+      title: "Premium Cotton Tee",
       image: "/lovable-uploads/a0af2fd1-53d3-4482-9b34-5dd7a03c12df.png",
       status: "coming-soon" as const,
-      startDate: new Date(Date.now() + 8 * 60 * 60 * 1000),
+      startDate: new Date(Date.now() + 8 * 60 * 60 * 1000), // 8 hours from now
     },
     {
-      id: "performance-shoe",
-      title: "Performance Footwear Drop",
+      id: "water-bottle",
+      title: "Water Bottle Collection",
       image: "/lovable-uploads/09b11c0a-f123-4891-be66-b516558a9817.png",
       status: "live" as const,
       endDate: new Date(
@@ -79,18 +79,16 @@ const Homepage = () => {
           2 * 24 * 60 * 60 * 1000 +
           14 * 60 * 60 * 1000 +
           37 * 60 * 1000
-      ),
-      price: 129,
+      ), // 2d 14h 37m from now
+      price: 22,
     },
   ];
 
-  // Existing filtering logic remains the same
   const filteredProducts =
     selectedCategory === "All"
       ? products
       : products.filter((product) => product.category === selectedCategory);
 
-  // Rest of the component remains structurally identical
   if (loading) {
     return (
       <div className="min-h-screen bg-white">
@@ -154,13 +152,13 @@ const Homepage = () => {
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center space-x-2">
               <Clock className="w-5 h-5 text-orange-500" />
-              <h2 className="text-2xl font-bold">Limited Edition Shoe Drops</h2>
+              <h2 className="text-2xl font-bold">Limited-time Drops</h2>
             </div>
             <Link
               to="/drops"
               className="text-sm font-medium text-gray-700 hover:text-black transition-colors"
             >
-              View all Drops →
+              View all →
             </Link>
           </div>
 
@@ -176,21 +174,21 @@ const Homepage = () => {
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold">
               {selectedCategory === "All"
-                ? "Premium Footwear Collection"
+                ? "Featured Products"
                 : selectedCategory}
             </h2>
             <Link
               to="/products"
               className="text-sm font-medium text-gray-700 hover:text-black transition-colors"
             >
-              View all Shoes →
+              View all →
             </Link>
           </div>
 
           {filteredProducts.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-gray-500">
-                No shoes found in this category.
+                No products found in this category.
               </p>
             </div>
           ) : (
