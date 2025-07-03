@@ -16,26 +16,22 @@ const Homepage = () => {
 
   const categories = [
     "All",
-    "Running Shoes", 
+    "Running Shoes",
     "Casual Sneakers", 
-    "Athletic Footwear", 
-    "Dress Shoes"
+    "Athletic Performance",
+    "Lifestyle"
   ];
 
-  // Existing fetch products logic remains unchanged
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        console.log("fetching products");
         const { data, error } = await supabase
           .from("products")
           .select("*")
           .eq("store_id", import.meta.env.VITE_STORE_ID || "")
           .order("created_at", { ascending: false });
-        console.log(data);
 
-        // Transform Supabase data to match our Product interface
         const transformedProducts: Product[] = (
           data as Tables<"products">[]
         ).map((product) => ({
@@ -45,13 +41,13 @@ const Homepage = () => {
           image: product.image_url || "/placeholder.svg",
           description: product.description || "",
           isNew: false,
-          category: "Running Shoes", 
+          category: product.category || "Running Shoes", 
         }));
 
         setProducts(transformedProducts);
       } catch (err) {
         console.error("Error fetching products:", err);
-        setError("Failed to load shoes");
+        setError("Failed to load shoe collection");
       } finally {
         setLoading(false);
       }
@@ -60,19 +56,18 @@ const Homepage = () => {
     fetchProducts();
   }, []);
 
-  // Modify drops to be shoe-specific
   const mockDrops: Drop[] = [
     {
-      id: "premium-runner",
-      title: "Elite Runner Collection",
+      id: "performance-runner",
+      title: "Performance Runner Drop",
       image: "/lovable-uploads/a0af2fd1-53d3-4482-9b34-5dd7a03c12df.png",
       status: "coming-soon" as const,
       startDate: new Date(Date.now() + 8 * 60 * 60 * 1000),
     },
     {
-      id: "performance-shoe",
-      title: "Performance Footwear Drop",
-      image: "/lovable-uploads/09b11c0a-f123-4891-be66-b516558a9817.png",
+      id: "urban-lifestyle",
+      title: "Urban Lifestyle Collection",
+      image: "/lovable-uploads/09b11c0a-f123-4891-be66-b516558a9817.png", 
       status: "live" as const,
       endDate: new Date(
         Date.now() +
@@ -80,17 +75,15 @@ const Homepage = () => {
           14 * 60 * 60 * 1000 +
           37 * 60 * 1000
       ),
-      price: 129,
+      price: 120,
     },
   ];
 
-  // Existing filtering logic remains the same
   const filteredProducts =
     selectedCategory === "All"
       ? products
       : products.filter((product) => product.category === selectedCategory);
 
-  // Rest of the component remains structurally identical
   if (loading) {
     return (
       <div className="min-h-screen bg-white">
@@ -130,7 +123,6 @@ const Homepage = () => {
       <HeroSection />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {/* Category Tabs */}
         <div className="mb-8">
           <div className="flex space-x-2 overflow-x-auto pb-2 scrollbar-hide">
             {categories.map((category) => (
@@ -149,18 +141,17 @@ const Homepage = () => {
           </div>
         </div>
 
-        {/* Featured Drops Section */}
         <div className="mb-16">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center space-x-2">
               <Clock className="w-5 h-5 text-orange-500" />
-              <h2 className="text-2xl font-bold">Limited Edition Shoe Drops</h2>
+              <h2 className="text-2xl font-bold">Limited Edition Drops</h2>
             </div>
             <Link
               to="/drops"
               className="text-sm font-medium text-gray-700 hover:text-black transition-colors"
             >
-              View all Drops →
+              View all →
             </Link>
           </div>
 
@@ -171,19 +162,18 @@ const Homepage = () => {
           </div>
         </div>
 
-        {/* Featured Products Section */}
         <div>
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold">
               {selectedCategory === "All"
-                ? "Premium Footwear Collection"
+                ? "Featured Footwear"
                 : selectedCategory}
             </h2>
             <Link
               to="/products"
               className="text-sm font-medium text-gray-700 hover:text-black transition-colors"
             >
-              View all Shoes →
+              View all →
             </Link>
           </div>
 
