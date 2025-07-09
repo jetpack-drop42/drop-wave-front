@@ -201,8 +201,8 @@ const CheckoutPage = () => {
         );
       }
 
-      // Redirect to Stripe checkout
-      window.location.href = checkoutSession.responseObject.url;
+      // Open Stripe checkout in new window
+      window.open(checkoutSession.responseObject.url, "_blank");
     } catch (error) {
       console.error("Checkout error:", error);
       toast({
